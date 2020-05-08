@@ -6,30 +6,30 @@ import javax.swing.JButton;
 
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.Color;
+import javax.swing.SwingConstants;
 
 public class Main {
 
 	private JFrame frmEleccionDeCampeon;
 	JButton btnCambiar;
 	JLabel lblFotos;
-	JLabel lblTextoCuentaAtras;
-	int n = 0, cuentaAtras = 5;
+	JLabel lblNombreChamp;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		Main window = new Main();
-		Seleccion seleccion = new Seleccion(window);
-		Thread th = new Thread(seleccion);
 
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					window.frmEleccionDeCampeon.setVisible(true);
-					th.start();
+					btnRandom(window);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,43 +48,44 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-//		Seleccion l = new Seleccion();
-//		String[] listado = l.listadoFotos(l.direccion_fotos);
-
 		frmEleccionDeCampeon = new JFrame();
-		frmEleccionDeCampeon.setTitle("RCS.exe");
+//		frmEleccionDeCampeon.setResizable(false);
+		frmEleccionDeCampeon.setTitle("RCS");
 		frmEleccionDeCampeon.setIconImage(Toolkit.getDefaultToolkit().getImage("data\\images\\img_portada\\icon.jpg"));
 		frmEleccionDeCampeon.setBounds(100, 100, 276, 439);
 		frmEleccionDeCampeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEleccionDeCampeon.getContentPane().setLayout(null);
 
-		lblTextoCuentaAtras = new JLabel("Seleccion en 5");
-		lblTextoCuentaAtras.setForeground(Color.WHITE);
-		lblTextoCuentaAtras.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblTextoCuentaAtras.setBounds(10, 307, 240, 32);
-		frmEleccionDeCampeon.getContentPane().add(lblTextoCuentaAtras);
+		btnCambiar = new JButton("");
+		btnCambiar.setIcon(new ImageIcon(
+				"C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\img_portada\\icon_dado.png"));
+		btnCambiar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnCambiar.setBackground(new Color(255, 255, 255, 0));
+		btnCambiar.setBounds(10, 11, 25, 25);
+		frmEleccionDeCampeon.getContentPane().add(btnCambiar);
+
+		lblNombreChamp = new JLabel("GG!");
+		lblNombreChamp.setForeground(Color.WHITE);
+		lblNombreChamp.setFont(new Font("Arial", Font.PLAIN, 25));
+		lblNombreChamp.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNombreChamp.setBounds(10, 360, 240, 40);
+		frmEleccionDeCampeon.getContentPane().add(lblNombreChamp);
 
 		lblFotos = new JLabel("lblImagenesFondo");
 		lblFotos.setIcon(new ImageIcon("data\\images\\img_portada\\portada.jpg"));
 		lblFotos.setBounds(0, 0, 260, 400);
 		frmEleccionDeCampeon.getContentPane().add(lblFotos);
+	}
 
-//		btnCambiar = new JButton("+");
-//		btnCambiar.setFont(new Font("Arial", Font.PLAIN, 20));
-//		btnCambiar.setBackground(Color.BLACK);
-//		btnCambiar.setForeground(Color.WHITE);
-//		btnCambiar.setBounds(10, 11, 56, 42);
-//		frame.getContentPane().add(btnCambiar);
+	public static void btnRandom(Main window) {
+		ActionListener cambioFondo = new ActionListener() {
 
-//		ActionListener cambioFondo = new ActionListener() {
-//
-//			public void actionPerformed(ActionEvent e) {
-//				Seleccion seleccion = new Seleccion();
-//				seleccion.run();
-//				System.out.println("x");
-//
-//			}
-//		};
-//		btnCambiar.addActionListener(cambioFondo);
+			public void actionPerformed(ActionEvent e) {
+				Seleccion seleccion = new Seleccion(window);
+				Thread th = new Thread(seleccion);
+				th.start();
+			}
+		};
+		window.btnCambiar.addActionListener(cambioFondo);
 	}
 }

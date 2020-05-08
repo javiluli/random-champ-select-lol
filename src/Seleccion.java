@@ -1,15 +1,17 @@
+import java.awt.Color;
 import java.io.File;
 import java.util.Random;
 
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class Seleccion implements Runnable {
+	String direccion_fotos = "data\\images\\img_chaps\\";
 	int numero_anterior = -1;
-	Main a;
 
 	public Seleccion() {
 	}
+
+	Main a;
 
 	public Seleccion(Main a) {
 		this.a = a;
@@ -34,53 +36,58 @@ public class Seleccion implements Runnable {
 		return repetir;
 	}
 
-	String direccion_fotos = "data\\images\\img_chaps\\";
-
 	public String[] listadoFotos(String direccion_fotos) {
 		File file = new File(direccion_fotos);
 		String[] lista = file.list();
 		return lista;
 	}
 
-	public void cuentaAtras() {
-		for (int i = a.cuentaAtras; i > -1; i--) {
+	public void textoNombreCampeon(String s) {
+		s = s.substring(0, s.indexOf(".")).toUpperCase(); // Elimina la extension de la foto
+		s = s.substring(0).replace("_", " "); // Cambia un "_" por un espacio en blanbo
+		s = s.substring(0).replace("#", "'");// Cambia un "#" por un apostrofo ingles
+		s = s.substring(0).replace("&", ".");// Cambia un "&" por un punto
+		a.lblNombreChamp.setText(s);
+	}
+
+	@Deprecated
+	public void textoAnimado() {
+		int x = a.lblNombreChamp.getLocation().x;
+		int y = a.lblNombreChamp.getLocation().y;
+
+		while (y > 349) { // 349 = altura del JPanel con borde
+			y--;
+			a.lblNombreChamp.setLocation(x, y);
 			try {
-				Thread.sleep(1000);
-				a.lblTextoCuentaAtras.setText("Seleccion en " + i);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 			}
-
-		}
-
-		try {
-			Thread.sleep(1000);
-			// Cambiar y quitar del layout
-			a.lblTextoCuentaAtras.setText("");
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
 		}
 	}
 
 	@Override
 	public void run() {
+		Animation an = new Animation();
+		an.toBottom(a.lblNombreChamp, a.lblFotos);
 
-		String[] listado = listadoFotos(direccion_fotos);
+		try {
+			int n = 0, m = an.randomInt();
+//			Random r = new Random();
+			String[] listado = listadoFotos(direccion_fotos);
 
-		cuentaAtras();
+			for (int i = 0; i < m; i++) {
 
-		for (int i = 0; i < 25; i++) {
-			int n;
-			do {
-				Random r = new Random();
-				n = r.nextInt(listado.length);
-			} while (!replica(n));
+				n = an.randomInt(listado.length);
 
-			a.lblFotos.setIcon(new ImageIcon(direccion_fotos + listado[n]));
+				a.lblFotos.setIcon(new ImageIcon(direccion_fotos + listado[n]));
 
-			try {
-				Thread.sleep(10);
-			} catch (InterruptedException ie) {
+				Thread.sleep(50);
 			}
+
+			textoNombreCampeon(listado[n]);
+
+			an.toTop(a.lblNombreChamp, a.lblFotos);
+		} catch (InterruptedException ie) {
 		}
 	}
 }
