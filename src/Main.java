@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Main {
 
@@ -18,6 +20,8 @@ public class Main {
 	JButton btnCambiar;
 	JLabel lblFotos;
 	JLabel lblNombreChamp;
+	JComboBox comboBox;
+	String direccion_fotos = "data\\images\\img_chaps\\";
 
 	/**
 	 * Launch the application.
@@ -49,12 +53,20 @@ public class Main {
 	 */
 	private void initialize() {
 		frmEleccionDeCampeon = new JFrame();
-//		frmEleccionDeCampeon.setResizable(false);
+		frmEleccionDeCampeon.setResizable(false);
 		frmEleccionDeCampeon.setTitle("RCS");
 		frmEleccionDeCampeon.setIconImage(Toolkit.getDefaultToolkit().getImage("data\\images\\img_portada\\icon.jpg"));
 		frmEleccionDeCampeon.setBounds(100, 100, 276, 439);
 		frmEleccionDeCampeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEleccionDeCampeon.getContentPane().setLayout(null);
+
+		comboBox = new JComboBox();
+		comboBox.setFont(new Font("Arial", Font.PLAIN, 12));
+		comboBox.setBackground(Color.BLACK);
+		comboBox.setForeground(Color.WHITE);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {" All", " Top", " Mid", " Jungle", " ADC", " Support"}));
+		comboBox.setBounds(170, 11, 80, 25);
+		frmEleccionDeCampeon.getContentPane().add(comboBox);
 
 		btnCambiar = new JButton("");
 		btnCambiar.setIcon(new ImageIcon(

@@ -1,12 +1,11 @@
-import java.awt.Color;
 import java.io.File;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
 public class Seleccion implements Runnable {
-	String direccion_fotos = "data\\images\\img_chaps\\";
 	int numero_anterior = -1;
+
+	String direccion_compuesta;
 
 	public Seleccion() {
 	}
@@ -50,6 +49,11 @@ public class Seleccion implements Runnable {
 		a.lblNombreChamp.setText(s);
 	}
 
+	public void addresFolder() {
+		String folderLines = a.comboBox.getSelectedItem().toString().toLowerCase().trim();
+		direccion_compuesta = a.direccion_fotos + folderLines + "\\";
+	}
+
 	@Deprecated
 	public void textoAnimado() {
 		int x = a.lblNombreChamp.getLocation().x;
@@ -70,16 +74,17 @@ public class Seleccion implements Runnable {
 		Animation an = new Animation();
 		an.toBottom(a.lblNombreChamp, a.lblFotos);
 
+		addresFolder();
+
 		try {
 			int n = 0, m = an.randomInt();
-//			Random r = new Random();
-			String[] listado = listadoFotos(direccion_fotos);
+			String[] listado = listadoFotos(direccion_compuesta);
 
 			for (int i = 0; i < m; i++) {
 
 				n = an.randomInt(listado.length);
 
-				a.lblFotos.setIcon(new ImageIcon(direccion_fotos + listado[n]));
+				a.lblFotos.setIcon(new ImageIcon(direccion_compuesta + listado[n]));
 
 				Thread.sleep(50);
 			}
