@@ -72,32 +72,30 @@ public class Main {
 		frmEleccionDeCampeon.setBounds(100, 100, 266, 429);
 		frmEleccionDeCampeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmEleccionDeCampeon.getContentPane().setLayout(null);
-		btnTop.setIcon(new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\top.jpg"));
+		btnTop.setIcon(new ImageIcon("data\\images\\icons\\top.jpg"));
 
 		// =========================================================
 
 		btnTop.setBounds(10, 47, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnTop);
 		btnTop.setToolTipText("Top line");
-		btnMid.setIcon(new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\mid.jpg"));
+		btnMid.setIcon(new ImageIcon("data\\images\\icons\\mid.jpg"));
 
 		btnMid.setBounds(10, 83, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnMid);
-		btnJungle.setIcon(
-				new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\jungler.jpg"));
+		btnJungle.setIcon(new ImageIcon("images\\icons\\jungler.jpg"));
 
 		btnJungle.setBounds(10, 119, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnJungle);
-		btnAdc.setIcon(new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\adc.jpg"));
+		btnAdc.setIcon(new ImageIcon("data\\images\\icons\\adc.jpg"));
 
 		btnAdc.setBounds(10, 155, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnAdc);
-		btnSupport.setIcon(
-				new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\support.jpg"));
+		btnSupport.setIcon(new ImageIcon("data\\images\\icons\\support.jpg"));
 
 		btnSupport.setBounds(10, 191, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnSupport);
-		btnAll.setIcon(new ImageIcon("C:\\Users\\javid\\eclipse-workspace\\RandomChamp\\data\\images\\icons\\all.jpg"));
+		btnAll.setIcon(new ImageIcon("data\\images\\icons\\all.jpg"));
 
 		btnAll.setBounds(10, 227, 25, 23);
 		frmEleccionDeCampeon.getContentPane().add(btnAll);
