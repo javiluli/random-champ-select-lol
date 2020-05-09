@@ -5,8 +5,6 @@ import javax.swing.ImageIcon;
 public class Seleccion implements Runnable {
 	int numero_anterior = -1;
 
-	String direccion_compuesta;
-
 	public Seleccion() {
 	}
 
@@ -49,50 +47,30 @@ public class Seleccion implements Runnable {
 		a.lblNombreChamp.setText(s);
 	}
 
-	public void addresFolder() {
-		String folderLines = a.comboBox.getSelectedItem().toString().toLowerCase().trim();
-		direccion_compuesta = a.direccion_fotos + folderLines + "\\";
-	}
-
-	@Deprecated
-	public void textoAnimado() {
-		int x = a.lblNombreChamp.getLocation().x;
-		int y = a.lblNombreChamp.getLocation().y;
-
-		while (y > 349) { // 349 = altura del JPanel con borde
-			y--;
-			a.lblNombreChamp.setLocation(x, y);
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-			}
-		}
-	}
-
 	@Override
 	public void run() {
+		System.out.println(a.b);
+
+		a.b = true;
 		Animation an = new Animation();
 		an.toBottom(a.lblNombreChamp, a.lblFotos);
 
-		addresFolder();
-
 		try {
 			int n = 0, m = an.randomInt();
-			String[] listado = listadoFotos(direccion_compuesta);
+			System.out.println(a.direccion_completa);
+			String[] listado = listadoFotos(a.direccion_completa);
 
 			for (int i = 0; i < m; i++) {
-
 				n = an.randomInt(listado.length);
-
-				a.lblFotos.setIcon(new ImageIcon(direccion_compuesta + listado[n]));
-
+				a.lblFotos.setIcon(new ImageIcon(a.direccion_completa + listado[n]));
 				Thread.sleep(50);
 			}
 
 			textoNombreCampeon(listado[n]);
-
+			a.b = false;
 			an.toTop(a.lblNombreChamp, a.lblFotos);
 		} catch (InterruptedException ie) {
 		}
+
 	}
 }
