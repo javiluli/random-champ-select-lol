@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
@@ -40,7 +42,7 @@ public class Seleccion implements Runnable {
 	}
 
 	public void textoNombreCampeon(String s) {
-		s = s.substring(0, s.indexOf(".")).toUpperCase(); // Elimina la extension de la foto
+		s = s.substring(0, s.indexOf(".")).toUpperCase();
 		s = s.substring(0).replace("_", " "); // Cambia un "_" por un espacio en blanbo
 		s = s.substring(0).replace("#", "'");// Cambia un "#" por un apostrofo ingles
 		s = s.substring(0).replace("&", ".");// Cambia un "&" por un punto
@@ -49,28 +51,33 @@ public class Seleccion implements Runnable {
 
 	@Override
 	public void run() {
-		System.out.println(a.b);
 
 		a.b = true;
 		Animation an = new Animation();
 		an.toBottom(a.lblNombreChamp, a.lblFotos);
 
 		try {
-			int n = 0, m = an.randomInt();
-			System.out.println(a.direccion_completa);
-			String[] listado = listadoFotos(a.direccion_completa);
+			String[] vs = null;
+			if (a.uso_fichero)
+				vs = listadoFotos(a.DIRECCION_CARPETA_FOTOS);
+			else {
+				try {
+					vs = Ficheros.leerFichero(a.direccion_Compuesta);
+				} catch (IOException e) {
+				}
+			}
 
+			int n = 0, m = an.randomInt();
 			for (int i = 0; i < m; i++) {
-				n = an.randomInt(listado.length);
-				a.lblFotos.setIcon(new ImageIcon(a.direccion_completa + listado[n]));
+				n = an.randomInt(vs.length);
+				a.lblFotos.setIcon(new ImageIcon(a.DIRECCION_CARPETA_FOTOS + vs[n]));
 				Thread.sleep(50);
 			}
 
-			textoNombreCampeon(listado[n]);
+			textoNombreCampeon(vs[n]);
 			a.b = false;
 			an.toTop(a.lblNombreChamp, a.lblFotos);
 		} catch (InterruptedException ie) {
 		}
-
 	}
 }

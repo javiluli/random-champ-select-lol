@@ -23,10 +23,12 @@ public class Main {
 	final String DIRECCION_ICON = "data\\images\\img_portada\\icon.jpg";
 	final String DIRECCION_ICON_BTN_RANDOM = "data\\images\\img_portada\\icon_dado.png";
 	final String DIRECCION_PORTADA = "data\\images\\img_portada\\portada.jpg";
-	final String direccion_carpetas_fotos = "data\\images\\img_chaps\\";
-	String nombre_carpeta_linea;
 	// ruta por defecto
-	String direccion_completa = direccion_carpetas_fotos + "all\\";;
+	final String DIRECCION_CARPETA_FOTOS = "data\\images\\img_chaps\\all\\";
+	String direccion_ficheros = "data\\images\\img_chaps\\";
+	String direccion_Compuesta = "data\\images\\img_chaps\\all";
+
+	boolean uso_fichero = true;
 	// ====================================
 	private JButton btnTop = new JButton("");
 	private JButton btnMid = new JButton("");
@@ -64,7 +66,6 @@ public class Main {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		System.out.println("asd");
 		frmEleccionDeCampeon = new JFrame();
 		frmEleccionDeCampeon.setResizable(false);
 		frmEleccionDeCampeon.setTitle("RCS");
@@ -83,7 +84,7 @@ public class Main {
 
 		btnMid.setBounds(10, 83, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnMid);
-		btnJungle.setIcon(new ImageIcon("images\\icons\\jungler.jpg"));
+		btnJungle.setIcon(new ImageIcon("data/images\\icons\\jungler.jpg"));
 
 		btnJungle.setBounds(10, 119, 25, 25);
 		frmEleccionDeCampeon.getContentPane().add(btnJungle);
@@ -123,59 +124,50 @@ public class Main {
 
 		ActionListener change_folder_top = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				if (b == false) {
-					nombre_carpeta_linea = "top\\";
-					direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+					uso_fichero = false;
+					direccion_Compuesta = direccion_ficheros + "top.txt";
 				}
 			}
 		};
 		ActionListener change_folder_mid = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				if (b == false) {
-					nombre_carpeta_linea = "mid\\";
-					direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+					uso_fichero = false;
+					direccion_Compuesta = direccion_ficheros + "mid.txt";
 				}
 			}
 		};
 		ActionListener change_folder_jungle = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				if (b == false) {
-					nombre_carpeta_linea = "jungle\\";
-					direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+					uso_fichero = false;
+					direccion_Compuesta = direccion_ficheros + "jungle.txt";
 				}
 			}
 		};
 		ActionListener change_folder_adc = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				if (b == false) {
-					nombre_carpeta_linea = "adc\\";
-					direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+					uso_fichero = false;
+					direccion_Compuesta = direccion_ficheros + "adc.txt";
 				}
 			}
 		};
 		ActionListener change_folder_support = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-
 				if (b == false) {
-					nombre_carpeta_linea = "support\\";
-					direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+					uso_fichero = false;
+					direccion_Compuesta = direccion_ficheros + "support.txt";
 				}
 			}
 		};
 
 		ActionListener change_folder_all = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
-				nombre_carpeta_linea = "all\\";
-				direccion_completa = direccion_carpetas_fotos + nombre_carpeta_linea;
+				if (b == false) {
+					uso_fichero = true;
+				}
 			}
 		};
 
@@ -189,7 +181,6 @@ public class Main {
 
 	public static void btnRandom(Main window) {
 		ActionListener cambioFondo = new ActionListener() {
-
 			public void actionPerformed(ActionEvent e) {
 				Seleccion seleccion = new Seleccion(window);
 				Thread th = new Thread(seleccion);
