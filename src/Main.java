@@ -1,3 +1,8 @@
+
+/**
+ *
+ * @author Javier Delgado Rodriguez
+ */
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -13,29 +18,85 @@ import java.awt.Color;
 import javax.swing.SwingConstants;
 
 public class Main {
-	boolean b = false;
+	private JFrame frame;
+	private JLabel lblFotos = new JLabel();
+	private JLabel lblNombreChamp = new JLabel();
+	private final JButton btnCambiar = new JButton();
+	private final JButton btnTop = new JButton();
+	private final JButton btnMid = new JButton();
+	private final JButton btnJungle = new JButton();
+	private final JButton btnAdc = new JButton();
+	private final JButton btnSupport = new JButton();
+	private final JButton btnAll = new JButton();
+	private final JButton btnGithub = new JButton();
+	private final JButton btnCodepen = new JButton();
 
-	private JFrame frmEleccionDeCampeon;
-	JButton btnCambiar;
-	JLabel lblFotos;
-	JLabel lblNombreChamp;
 	// =================================================================
-	final String DIRECCION_ICON = "data\\images\\img_portada\\icon.jpg";
-	final String DIRECCION_ICON_BTN_RANDOM = "data\\images\\img_portada\\icon_dado.png";
-	final String DIRECCION_PORTADA = "data\\images\\img_portada\\portada.jpg";
-	// ruta por defecto
-	final String DIRECCION_CARPETA_FOTOS = "data\\images\\img_chaps\\all\\";
-	String direccion_ficheros = "data\\images\\img_chaps\\";
-	String direccion_Compuesta = "data\\images\\img_chaps\\all";
+	// Rutas de los ficherosn y carpetas.
+	private final String DIRECCION_CARPETA_FOTOS = "data\\images\\champs\\";
+	private final String FICHERO_CHAMPS_TOP = "data\\ficheros\\top.txt";
+	private final String FICHERO_CHAMPS_MID = "data\\ficheros\\mid.txt";
+	private final String FICHERO_CHAMPS_JUNGLE = "data\\ficheros\\jungle.txt";
+	private final String FICHERO_CHAMPS_ADC = "data\\ficheros\\adc.txt";
+	private final String FICHERO_CHAMPS_SUPPORT = "data\\ficheros\\support.txt";
+	private String direccion_fichero;
 
-	boolean uso_fichero = true;
-	// ====================================
-	private JButton btnTop = new JButton("");
-	private JButton btnMid = new JButton("");
-	private JButton btnJungle = new JButton("");
-	private JButton btnAdc = new JButton("");
-	private JButton btnSupport = new JButton("");
-	private final JButton btnAll = new JButton("");
+	// =================================================================
+	/*
+	 * Evita la seleccion de otra linea minetras se ejecuta una seleccion, asi se
+	 * evita mezclar lineas y capeones.
+	 */
+	private boolean cambiarLinea = false;
+
+	/*
+	 * Permite saber al programa si debe leer un fichero para generar la eleccion de
+	 * campeon.
+	 */
+	private boolean uso_fichero = false;
+
+	public boolean isCambiarLinea() {
+		return cambiarLinea;
+	}
+
+	public void setCambiarLinea(boolean cambiarLinea) {
+		this.cambiarLinea = cambiarLinea;
+	}
+
+	public JLabel getLblFotos() {
+		return lblFotos;
+	}
+
+	public void setLblFotos(JLabel lblFotos) {
+		this.lblFotos = lblFotos;
+	}
+
+	public JLabel getLblNombreChamp() {
+		return lblNombreChamp;
+	}
+
+	public void setLblNombreChamp(JLabel lblNombreChamp) {
+		this.lblNombreChamp = lblNombreChamp;
+	}
+
+	public String getDireccion_fichero() {
+		return direccion_fichero;
+	}
+
+	public void setDireccion_fichero(String direccion_fichero) {
+		this.direccion_fichero = direccion_fichero;
+	}
+
+	public boolean isUso_fichero() {
+		return uso_fichero;
+	}
+
+	public void setUso_fichero(boolean uso_fichero) {
+		this.uso_fichero = uso_fichero;
+	}
+
+	public String getDIRECCION_CARPETA_FOTOS() {
+		return DIRECCION_CARPETA_FOTOS;
+	}
 
 	/**
 	 * Launch the application.
@@ -46,7 +107,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					window.frmEleccionDeCampeon.setVisible(true);
+					window.frame.setVisible(true);
 					btnRandom(window);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -63,130 +124,157 @@ public class Main {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Btn random.
+	 *
+	 * @param window the window
 	 */
-	private void initialize() {
-		frmEleccionDeCampeon = new JFrame();
-		frmEleccionDeCampeon.setResizable(false);
-		frmEleccionDeCampeon.setTitle("RCS");
-		frmEleccionDeCampeon.setIconImage(Toolkit.getDefaultToolkit().getImage(DIRECCION_ICON));
-		frmEleccionDeCampeon.setBounds(100, 100, 266, 429);
-		frmEleccionDeCampeon.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmEleccionDeCampeon.getContentPane().setLayout(null);
-		btnTop.setIcon(new ImageIcon("data\\images\\icons\\top.jpg"));
-
-		// =========================================================
-
-		btnTop.setBounds(10, 47, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnTop);
-		btnTop.setToolTipText("Top line");
-		btnMid.setIcon(new ImageIcon("data\\images\\icons\\mid.jpg"));
-
-		btnMid.setBounds(10, 83, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnMid);
-		btnJungle.setIcon(new ImageIcon("data/images\\icons\\jungler.jpg"));
-
-		btnJungle.setBounds(10, 119, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnJungle);
-		btnAdc.setIcon(new ImageIcon("data\\images\\icons\\adc.jpg"));
-
-		btnAdc.setBounds(10, 155, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnAdc);
-		btnSupport.setIcon(new ImageIcon("data\\images\\icons\\support.jpg"));
-
-		btnSupport.setBounds(10, 191, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnSupport);
-		btnAll.setIcon(new ImageIcon("data\\images\\icons\\all.jpg"));
-
-		btnAll.setBounds(10, 227, 25, 23);
-		frmEleccionDeCampeon.getContentPane().add(btnAll);
-
-		// ===========================================================================
-
-		btnCambiar = new JButton("");
-		btnCambiar.setIcon(new ImageIcon(DIRECCION_ICON_BTN_RANDOM));
-		btnCambiar.setFont(new Font("Arial", Font.PLAIN, 20));
-		btnCambiar.setBackground(new Color(255, 255, 255, 0));
-		btnCambiar.setBounds(10, 11, 25, 25);
-		frmEleccionDeCampeon.getContentPane().add(btnCambiar);
-
-		lblNombreChamp = new JLabel("GG!");
-		lblNombreChamp.setForeground(Color.WHITE);
-		lblNombreChamp.setFont(new Font("Arial", Font.PLAIN, 25));
-		lblNombreChamp.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNombreChamp.setBounds(10, 360, 240, 40);
-		frmEleccionDeCampeon.getContentPane().add(lblNombreChamp);
-
-		lblFotos = new JLabel("lblImagenesFondo");
-		lblFotos.setIcon(new ImageIcon(DIRECCION_PORTADA));
-		lblFotos.setBounds(0, 0, 260, 400);
-		frmEleccionDeCampeon.getContentPane().add(lblFotos);
-
-		ActionListener change_folder_top = new ActionListener() {
+	public static void btnRandom(Main main) {
+		main.btnCambiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = false;
-					direccion_Compuesta = direccion_ficheros + "top.txt";
-				}
-			}
-		};
-		ActionListener change_folder_mid = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = false;
-					direccion_Compuesta = direccion_ficheros + "mid.txt";
-				}
-			}
-		};
-		ActionListener change_folder_jungle = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = false;
-					direccion_Compuesta = direccion_ficheros + "jungle.txt";
-				}
-			}
-		};
-		ActionListener change_folder_adc = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = false;
-					direccion_Compuesta = direccion_ficheros + "adc.txt";
-				}
-			}
-		};
-		ActionListener change_folder_support = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = false;
-					direccion_Compuesta = direccion_ficheros + "support.txt";
-				}
-			}
-		};
-
-		ActionListener change_folder_all = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (b == false) {
-					uso_fichero = true;
-				}
-			}
-		};
-
-		btnTop.addActionListener(change_folder_top);
-		btnMid.addActionListener(change_folder_mid);
-		btnJungle.addActionListener(change_folder_jungle);
-		btnAdc.addActionListener(change_folder_adc);
-		btnSupport.addActionListener(change_folder_support);
-		btnAll.addActionListener(change_folder_all);
-	}
-
-	public static void btnRandom(Main window) {
-		ActionListener cambioFondo = new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Seleccion seleccion = new Seleccion(window);
+				Seleccion seleccion = new Seleccion(main);
 				Thread th = new Thread(seleccion);
 				th.start();
 			}
-		};
-		window.btnCambiar.addActionListener(cambioFondo);
+		});
 	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setTitle("Random champ selection");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("data\\images\\icons\\icon.jpg"));
+		frame.setBounds(100, 100, 486, 299);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+
+		// =================================================================
+		// Label con el nombre del campeon
+		getLblNombreChamp().setText("GG!");
+		getLblNombreChamp().setForeground(new Color(248, 248, 255));
+		getLblNombreChamp().setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 25));
+		getLblNombreChamp().setHorizontalAlignment(SwingConstants.RIGHT);
+		getLblNombreChamp().setBounds(230, 230, 240, 40);
+		frame.getContentPane().add(getLblNombreChamp());
+
+		// =================================================================
+		// Boton para la seleccion de campeon aleatortio
+		btnCambiar.setIcon(new ImageIcon("data\\images\\icons\\icon_dado.png"));
+		btnCambiar.setFont(new Font("Arial", Font.PLAIN, 20));
+		btnCambiar.setBackground(new Color(255, 255, 255, 0));
+		btnCambiar.setBounds(10, 11, 28, 28);
+		frame.getContentPane().add(btnCambiar);
+
+		// =================================================================
+		// Seleccion de campeones Top-Lines
+		btnTop.setIcon(new ImageIcon("data\\images\\icons\\top.jpg"));
+		btnTop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea()) {
+					setUso_fichero(true);
+					setDireccion_fichero(FICHERO_CHAMPS_TOP);
+				}
+			}
+		});
+		btnTop.setBounds(10, 44, 28, 28);
+		frame.getContentPane().add(btnTop);
+
+		// Seleccion de campeones Mid-Lines
+		btnMid.setIcon(new ImageIcon("data\\images\\icons\\mid.jpg"));
+		btnMid.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea()) {
+					setUso_fichero(true);
+					setDireccion_fichero(FICHERO_CHAMPS_MID);
+				}
+			}
+		});
+		btnMid.setBounds(10, 77, 28, 28);
+		frame.getContentPane().add(btnMid);
+
+		// Seleccion de campeones Jungles
+		btnJungle.setIcon(new ImageIcon("data\\images\\icons\\jungler.jpg"));
+		btnJungle.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea()) {
+					setUso_fichero(true);
+					setDireccion_fichero(FICHERO_CHAMPS_JUNGLE);
+				}
+			}
+		});
+		btnJungle.setBounds(10, 110, 28, 28);
+		frame.getContentPane().add(btnJungle);
+
+		// Seleccion de campeones ADC-Bot
+		btnAdc.setIcon(new ImageIcon("data\\images\\icons\\adc.jpg"));
+		btnAdc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea()) {
+					setUso_fichero(true);
+					setDireccion_fichero(FICHERO_CHAMPS_ADC);
+				}
+			}
+		});
+		btnAdc.setBounds(10, 143, 28, 28);
+		frame.getContentPane().add(btnAdc);
+
+		// Seleccion de campeones Support-Bot
+		btnSupport.setIcon(new ImageIcon("data\\images\\icons\\support.jpg"));
+		btnSupport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea()) {
+					setUso_fichero(true);
+					setDireccion_fichero(FICHERO_CHAMPS_SUPPORT);
+				}
+			}
+		});
+		btnSupport.setBounds(10, 176, 28, 28);
+		frame.getContentPane().add(btnSupport);
+
+		// Seleccion de todos los campeones
+		btnAll.setIcon(new ImageIcon("data\\images\\icons\\all.jpg"));
+		btnAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (!isCambiarLinea())
+					setUso_fichero(false);
+			}
+		});
+		btnAll.setBounds(10, 209, 28, 28);
+		btnAll.setBackground(new Color(255, 255, 255, 0));
+		frame.getContentPane().add(btnAll);
+
+		// =================================================================
+		// Botonoes para redes sociales
+
+		// Boton para acceso a GitHub
+		btnGithub.setIcon(new ImageIcon("data\\images\\icons\\github.jpg"));
+		btnGithub.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Social s = new Social();
+				s.redes(s.GITHUB);
+			}
+		});
+		btnGithub.setBounds(405, 11, 27, 27);
+		frame.getContentPane().add(btnCodepen);
+
+		// Boton para acceso a CodePen
+		btnCodepen.setIcon(new ImageIcon("data\\images\\icons\\codepen.jpg"));
+		btnCodepen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Social s = new Social();
+				s.redes(s.CODEPEN);
+			}
+		});
+		btnCodepen.setBounds(442, 11, 28, 28);
+		frame.getContentPane().add(btnGithub);
+
+		// =================================================================
+		// Foto del campeon que aparece cuando se genera la seleccion
+		getLblFotos().setIcon(new ImageIcon("data\\images\\portada\\portada.jpg"));
+		getLblFotos().setBounds(0, 0, 480, 270);
+		frame.getContentPane().add(getLblFotos());
+	}
+
 }
