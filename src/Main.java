@@ -3,23 +3,22 @@
  *
  * @author Javier Delgado Rodriguez
  */
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-
-import javax.swing.ImageIcon;
+import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.Font;
-import java.awt.Color;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 public class Main {
 	private JFrame frame;
-	private JLabel lblFotos = new JLabel();
+	private JLabel lblBackground = new JLabel();
 	private JLabel lblNombreChamp = new JLabel();
 	private final JButton btnCambiar = new JButton();
 	private final JButton btnTop = new JButton();
@@ -39,7 +38,7 @@ public class Main {
 	private final String FICHERO_CHAMPS_JUNGLE = "data\\ficheros\\jungle.txt";
 	private final String FICHERO_CHAMPS_ADC = "data\\ficheros\\adc.txt";
 	private final String FICHERO_CHAMPS_SUPPORT = "data\\ficheros\\support.txt";
-	private String direccion_fichero;
+	private String aux_direccion_fichero;
 
 	// =================================================================
 	/*
@@ -54,53 +53,6 @@ public class Main {
 	 */
 	private boolean uso_fichero = false;
 
-	public boolean isCambiarLinea() {
-		return cambiarLinea;
-	}
-
-	public void setCambiarLinea(boolean cambiarLinea) {
-		this.cambiarLinea = cambiarLinea;
-	}
-
-	public JLabel getLblFotos() {
-		return lblFotos;
-	}
-
-	public void setLblFotos(JLabel lblFotos) {
-		this.lblFotos = lblFotos;
-	}
-
-	public JLabel getLblNombreChamp() {
-		return lblNombreChamp;
-	}
-
-	public void setLblNombreChamp(JLabel lblNombreChamp) {
-		this.lblNombreChamp = lblNombreChamp;
-	}
-
-	public String getDireccion_fichero() {
-		return direccion_fichero;
-	}
-
-	public void setDireccion_fichero(String direccion_fichero) {
-		this.direccion_fichero = direccion_fichero;
-	}
-
-	public boolean isUso_fichero() {
-		return uso_fichero;
-	}
-
-	public void setUso_fichero(boolean uso_fichero) {
-		this.uso_fichero = uso_fichero;
-	}
-
-	public String getDIRECCION_CARPETA_FOTOS() {
-		return DIRECCION_CARPETA_FOTOS;
-	}
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		Main window = new Main();
 
@@ -117,16 +69,17 @@ public class Main {
 	}
 
 	/**
-	 * Create the application.
+	 * Crea la aplicacion principal.
 	 */
 	public Main() {
 		initialize();
 	}
 
 	/**
-	 * Btn random.
+	 * Permite la llamada a la clase Seleccion mediante el uso de un Thread que
+	 * funciona a la par que el JFrame.
 	 *
-	 * @param window the window
+	 * @param main la ventana generada por JFrame
 	 */
 	public static void btnRandom(Main main) {
 		main.btnCambiar.addActionListener(new ActionListener() {
@@ -139,7 +92,7 @@ public class Main {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Inicializacion del JFrame
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -252,8 +205,7 @@ public class Main {
 		btnGithub.setIcon(new ImageIcon("data\\images\\icons\\github.jpg"));
 		btnGithub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Social s = new Social();
-				s.redes(s.GITHUB);
+				Social.redes(Social.GITHUB);
 			}
 		});
 		btnGithub.setBounds(405, 11, 27, 27);
@@ -263,8 +215,7 @@ public class Main {
 		btnCodepen.setIcon(new ImageIcon("data\\images\\icons\\codepen.jpg"));
 		btnCodepen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Social s = new Social();
-				s.redes(s.CODEPEN);
+				Social.redes(Social.CODEPEN);
 			}
 		});
 		btnCodepen.setBounds(442, 11, 28, 28);
@@ -277,4 +228,39 @@ public class Main {
 		frame.getContentPane().add(getLblFotos());
 	}
 
+	public boolean isCambiarLinea() {
+		return cambiarLinea;
+	}
+
+	public void setCambiarLinea(boolean cambiarLinea) {
+		this.cambiarLinea = cambiarLinea;
+	}
+
+	public JLabel getLblFotos() {
+		return lblBackground;
+	}
+
+	public JLabel getLblNombreChamp() {
+		return lblNombreChamp;
+	}
+
+	public String getDireccion_fichero() {
+		return aux_direccion_fichero;
+	}
+
+	public void setDireccion_fichero(String direccion_fichero) {
+		this.aux_direccion_fichero = direccion_fichero;
+	}
+
+	public boolean isUso_fichero() {
+		return uso_fichero;
+	}
+
+	public void setUso_fichero(boolean uso_fichero) {
+		this.uso_fichero = uso_fichero;
+	}
+
+	public String getDIRECCION_CARPETA_FOTOS() {
+		return DIRECCION_CARPETA_FOTOS;
+	}
 }

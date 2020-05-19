@@ -1,3 +1,4 @@
+
 /**
  *
  * @author Javier Delgado Rodriguez
@@ -7,105 +8,129 @@ import java.io.IOException;
 
 import javax.swing.ImageIcon;
 
-// TODO: Auto-generated Javadoc
 /**
- * The Class Seleccion.
+ * Class Seleccion es la encargada de seleccionar el campeon aleatorio mediante
+ * animaciones que cambian el fondo del JFrame por la imagen del campeon
+ * seleccionado.
  */
 public class Seleccion implements Runnable {
-	
-	/** The numero anterior. */
-	int numero_anterior = -1;
 
 	/**
-	 * Instantiates a new seleccion.
+	 * Instancia una nueva seleccion.
 	 */
 	public Seleccion() {
 	}
 
-	/** The a. */
-	Main a;
+	/** Objeto de la clase Main main */
+	Main main;
 
 	/**
-	 * Instantiates a new seleccion.
-	 *
-	 * @param a the a
+	 * Instancia una nueva seleccion.
+	 * 
+	 * @param main Objeto de la clase Main.
 	 */
-	public Seleccion(Main a) {
-		this.a = a;
+	public Seleccion(Main main) {
+		this.main = main;
 	}
 
 	/**
-	 * Permite verificar si el numero anterior generado es el mismo que el actual,
-	 * en caso de que lo sea se devolvera un True, en caso de no ser el mismo
-	 * devolvera False.
+	 * Numero int auxiliar.
+	 */
+	int n_aux = -1;
+
+	/**
+	 * Genera numeros aleatorios sin que el numero anterior sea igual que el nuevo
+	 * numero generado.
+	 * 
+	 * Ejermplo posible: 2,3,2,4,6,4.
+	 * 
+	 * Ejemplo no posible: 2,2,3,4,4,5,5.
 	 *
 	 * @param n Posicion en el array para el boton seleccionado
 	 * @return true En caso de que ambos numeros sean igual, tanto el numero como el
-	 *         anterior a este
+	 *         anterior a este.
 	 */
 	public boolean replica(int n) {
-		boolean repetir = true;
-
-		if (numero_anterior == n)
-			repetir = false;
-
-		numero_anterior = n;
+		boolean repetir = false;
+		if (n_aux == n)
+			repetir = true;
+		n_aux = n;
 		return repetir;
 	}
 
 	/**
-	 * Listado fotos.
+	 * Lee un direcctorio y almacena en un String[] cada uno de los elementos que se
+	 * encuentra en ese directorio.
+	 * 
+	 * En este caso recibe el directorio con las imagenes de los campeones y
+	 * almacena los nombres de los campeones (que es el mismo que el del fichero con
+	 * su extension de la imagen) en el Array.
 	 *
-	 * @param direccion_fotos the direccion fotos
-	 * @return the string[]
+	 * @param s Hace referencia al direcctorio.
+	 * @return un String[] Con los nombres de los ficheros hayados en el
+	 *         direcctorio.
 	 */
-	public String[] listadoFotos(String direccion_fotos) {
-		File file = new File(direccion_fotos);
+	public String[] listadoFotos(String s) {
+		File file = new File(s);
 		String[] lista = file.list();
 		return lista;
 	}
 
 	/**
-	 * Texto nombre campeon.
+	 * Modifica un String el cual sera recibido por parametro, dicho string es el
+	 * mismo que el nombre que recibe una imagen de un campeon (incluida su
+	 * extension de imagen).
+	 * 
+	 * <p>
+	 * Cambios que se realizan.
+	 * </p>
+	 * <ol>
+	 * <li>Desde el inicio del strin recibido hasta un punto, tanto el punto como lo
+	 * que esta despues es eliminado.</li>
+	 * <li>Cambia un "_" por un espacio en blanco " ".</li>
+	 * <li>Cambia un "#" por un apostrofo ingles " ' ".</li>
+	 * <li>Cambia un "&" por un punto ".".</li>
+	 * </ol>
 	 *
-	 * @param s the s
+	 * 
+	 * @param s Un String el cual se quiera modificar.
 	 */
 	public void textoNombreCampeon(String s) {
-		s = s.substring(0, s.indexOf(".")).toUpperCase();
-		s = s.substring(0).replace("_", " "); // Cambia un "_" por un espacio en blanbo
-		s = s.substring(0).replace("#", "'");// Cambia un "#" por un apostrofo ingles
-		s = s.substring(0).replace("&", ".");// Cambia un "&" por un punto
-		a.getLblNombreChamp().setText(s);
+		// #1.
+		s = s.substring(0, s.indexOf(".")).toUpperCase().trim();
+		// #2.
+		s = s.substring(0).replace("_", " ");
+		// #3.
+		s = s.substring(0).replace("#", "'");
+		// #4.
+		s = s.substring(0).replace("&", ".");
+		main.getLblNombreChamp().setText(s);
 	}
 
-	/**
-	 * Run.
-	 */
 	@Override
 	public void run() {
-		a.setCambiarLinea(true);
-		Animation an = new Animation();
-		an.toBottom(a.getLblNombreChamp(), a.getLblFotos());
-		String[] vs = listadoFotos(a.getDIRECCION_CARPETA_FOTOS());
+		main.setCambiarLinea(true);
+		Animacion.toBottom(main.getLblNombreChamp(), main.getLblFotos());
+		String[] nombreFotos = listadoFotos(main.getDIRECCION_CARPETA_FOTOS());
 
-		try {
-			if (a.isUso_fichero())
-				try {
-					vs = Ficheros.leerFichero(a.getDireccion_fichero());
-				} catch (IOException e) {
-				}
+		if (main.isUso_fichero())
+			try {
+				File file = new File(main.getDireccion_fichero());
+				nombreFotos = Ficheros.leerFichero(file);
+			} catch (IOException e) {}
 
-			int n = 0, m = an.randomInt();
-			for (int i = 0; i < m; i++) {
-				n = an.randomInt(vs.length);
-				a.getLblFotos().setIcon(new ImageIcon(a.getDIRECCION_CARPETA_FOTOS() + vs[n]));
+		int n = 0, m = Animacion.randomInt();
+		for (int i = 0; i < m; i++) {
+			do {
+				n = Animacion.randomInt(nombreFotos.length);
+			} while (replica(n));
+			main.getLblFotos().setIcon(new ImageIcon(main.getDIRECCION_CARPETA_FOTOS() + nombreFotos[n]));
+			try {
 				Thread.sleep(50);
-			}
-
-			textoNombreCampeon(vs[n]);
-			a.setCambiarLinea(false);
-			an.toTop(a.getLblNombreChamp(), a.getLblFotos());
-		} catch (InterruptedException ie) {
+			} catch (InterruptedException e) {}
 		}
+		textoNombreCampeon(nombreFotos[n]);
+		main.setCambiarLinea(false);
+		Animacion.toTop(main.getLblNombreChamp(), main.getLblFotos());
 	}
 }
