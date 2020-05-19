@@ -1,5 +1,4 @@
 alistar.jpg
-annie.jpg
 bardo.jpg
 blitzcrank.jpg
 brand.jpg
@@ -13,6 +12,7 @@ morgana.jpg
 nami.jpg
 nautilus.jpg
 pyke.jpg
+rakan.jpg
 senna.jpg
 sett.jpg
 sona.jpg
@@ -21,6 +21,8 @@ swain.jpg
 tahm_kench.jpg
 taric.jpg
 thresh.jpg
+vel#koz.jpg
+xerath.jpg
 yuumi.jpg
 zilean.jpg
 zyra.jpg

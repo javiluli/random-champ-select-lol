@@ -5,7 +5,6 @@ cho#Gath.jpg
 darius.jpg
 dr&mundo.jpg
 fiora.jpg
-galio.jpg
 gangplank.jpg
 garen.jpg
 gnar.jpg
@@ -25,7 +24,6 @@ poppy.jpg
 quinn.jpg
 renekton.jpg
 riven.jpg
-rumble.jpg
 sett.jpg
 shen.jpg
 singed.jpg
@@ -34,6 +32,7 @@ sylas.jpg
 teemo.jpg
 tryndamere.jpg
 urgot.jpg
+vayne.jpg
 vladimir.jpg
 volibear.jpg
 wukong.jpg

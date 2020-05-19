@@ -1,8 +1,4 @@
 amumu.jpg
-camille.jpg
-darius.jpg
-diana.jpg
-dr&mundo.jpg
 ekko.jpg
 elise.jpg
 evelynn.jpg
@@ -17,11 +13,11 @@ karthus.jpg
 kayn.jpg
 kha#zix.jpg
 kindred.jpg
-lee.jpg
-master_yi.jpg
+lee_sin.jpg
+maestro_yi.jpg
 nidalee.jpg
 nocturne.jpg
-nunu.jpg
+nunu_y_willump.jpg
 olaf.jpg
 rammus.jpg
 rek#sai.jpg
