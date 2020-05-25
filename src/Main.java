@@ -97,8 +97,8 @@ public class Main {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setTitle("Random champ selection");
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("data\\images\\icons\\icon.jpg"));
+		frame.setTitle("Seleccion de campeon aleatoria");
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("data\\images\\icons\\icon.png"));
 		frame.setBounds(100, 100, 486, 299);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
