@@ -4,8 +4,8 @@
 
 > NOTA: Importante dejar el ejecutable en la misma carpeta/directorio que la carpeta llamada 'data'.
 
-![Foto](data/readme/inicio.png)
+![inicio.png](data/readme/inicio.png)
 
 ## Gif del uso de la aplicacion.
 
-![Gif](data/readme/video.gif)
+![muestra.gif](data/readme/muestra.gif)
