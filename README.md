@@ -1,7 +1,11 @@
-# Selecctor de campeon aleatorio del LoL.
+# Selector de campeón aleatorio del LoL.
 
-## Pequeña muestra de la aplicacion en ejecucion.
+Este programa no usa API ni acceso a datos HTTP, por lo que los campeones incluidos en la aplicación son limitados dentro de la carpeta `data/images/champs/`.
+
+La versión del LOL en la cual se hizo este programa fue la 10.11 al igual que la lista de los campeones y las lineas preferentes donde se juegan.
 
 > NOTA: Importante dejar el ejecutable en la misma carpeta/directorio que la carpeta llamada 'data'.
+
+## Pequeña muestra de la aplicación en ejecución.
 
 ![muestra.gif](data/readme/muestra.gif)
